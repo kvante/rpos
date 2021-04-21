@@ -1,11 +1,22 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
 from .models import Product, Table, Order, Category
-from .serializers import ProductSerializer, TableSerializer, OrderSerializer
+from .serializers import ProductSerializer, TableSerializer, OrderSerializer, CookOrderSerializer
+from .serializers import CookOrderUpdateSerializer
 from .serializers import CategorySerializer
-from rest_framework import viewsets
+from rest_framework.generics import *
 from rest_framework import permissions
 from .mixins import *
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend,filters
+
+
+
+
+class MyPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 
 # class UserViewSet(viewsets.ModelViewSet):
@@ -135,6 +146,27 @@ class CategoryDelView(DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class CookOrderView(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = CookOrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = MyPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['cooked']
 
 
+class CookOrderUpdate(UpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = CookOrderUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
+
+class OrderReportView(ListAPIView):
+    queryset = Order.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    serializer_class = OrderSerializer
+    pagination_class = MyPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['created_at']
+    search_fields = ['created_at']

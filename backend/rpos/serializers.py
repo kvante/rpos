@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import *
 
 
-
 # class UserSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = CustomUser
@@ -32,3 +31,20 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+
+class CookOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'cooked', 'created_at', 'product',)
+
+
+class CookOrderUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'cooked',)
+
+class WaiterOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'cooked', 'created_at', 'product',)

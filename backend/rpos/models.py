@@ -41,16 +41,6 @@ class Product(models.Model):
     ordering = models.IntegerField()
     available = models.BooleanField(blank=True, default=True)
 
-    def _categoryNeatName(self):
-        return self.category.neatName
-
-    categoryNeatName = property(_categoryNeatName)
-
-    def _categoryId(self):
-        return self.category.id
-
-    categoryId = property(_categoryId)
-
     def __str__(self):
         return self.name
 
@@ -60,6 +50,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    created_at = models.DateTimeField("Когда был сделан заказ блюда", auto_now_add=True)
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     product = models.ManyToManyField(Product)
     total = models.DecimalField(decimal_places=2, max_digits=10, default=0)
