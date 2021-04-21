@@ -20,10 +20,10 @@ app_name = 'rpos'
 
 urlpatterns = [
     #path('api/v1/User', views.UserViewSet.as_view(), name='get_User'),
-    path('api/v1/UsersList', views.UserListView.as_view(), name='get_post_User'),
-    path('api/v1/UserCreate', views.UserCreateView.as_view(), name='set_post_User'),
-    path('api/v1/UserDel', views.UserDelView.as_view(), name='del_post_User'),
-    path('api/v1/UserUpdate', views.UserUpdateView.as_view(), name='update_post_User'),
+    # path('api/v1/UsersList', views.UserListView.as_view(), name='get_post_User'),
+    # path('api/v1/UserCreate', views.UserCreateView.as_view(), name='set_post_User'),
+    # path('api/v1/UserDel', views.UserDelView.as_view(), name='del_post_User'),
+    # path('api/v1/UserUpdate', views.UserUpdateView.as_view(), name='update_post_User'),
 
     path('api/v1/CategorytList', views.CategoryListView.as_view(), name='get_post_Category'),
     path('api/v1/CategoryCreate', views.CategoryCreateView.as_view(), name='get_post_Category'),
